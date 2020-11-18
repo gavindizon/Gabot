@@ -14,14 +14,21 @@ for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
   gabot.commands.set(command.name, command);
 }
-
-gabot.on("ready", () => {
-  const server = gabot.guilds.cache.get("274436634823491584");
-  const memebers = server.members.cache.each((element) => {
-    console.log(element.user.username);
-  });
+var server;
+gabot.on("ready", (m) => {
+  server = gabot.guilds.cache.get("274436634823491584");
+  gabot.user.setActivity("Genshin Impact", { type: "PLAYING" });
 });
 
+gabot.on("message", async (message) => {
+  if (message.content.startsWith(process.env.PREFIX + "rolelist")) {
+    const Members = message.guild.members.cache.map((member) => {
+      return member.user.username;
+    });
+
+    message.channel.send(`Users: ${Members}`);
+  }
+});
 gabot.on("message", (message) => {
   if (!message.content.startsWith(process.env.PREFIX) || message.author.bot)
     return;
