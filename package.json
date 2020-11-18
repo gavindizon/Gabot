@@ -1,0 +1,25 @@
+{
+  "name": "gabot",
+  "version": "1.0.0",
+  "description": "A Discord bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gavindizon/Gabot.git"
+  },
+  "keywords": [
+    "bot"
+  ],
+  "author": "Gavin Dizon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gavindizon/Gabot/issues"
+  },
+  "homepage": "https://github.com/gavindizon/Gabot#readme",
+  "dependencies": {
+    "discord.js": "^12.4.1"
+  }
+}
