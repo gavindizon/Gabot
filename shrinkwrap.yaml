@@ -1,5 +1,6 @@
 dependencies:
   discord.js: 12.4.1
+  dotenv: 8.2.0
 packages:
   /@discordjs/collection/0.1.6:
     dev: false
@@ -56,6 +57,12 @@ packages:
       node: '>=12.0.0'
     resolution:
       integrity: sha512-KxOB8LOAN3GmrvkD6a6Fr1nlfArIFZ+q7Uqg4T/5duB90GZy9a0/Py2E+Y+eHKP6ZUCR2mbNMLCcHGjahiaNqA==
+  /dotenv/8.2.0:
+    dev: false
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
   /event-target-shim/5.0.1:
     dev: false
     engines:
@@ -113,3 +120,4 @@ shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
   discord.js: ^12.4.1
+  dotenv: ^8.2.0
