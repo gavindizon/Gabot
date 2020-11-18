@@ -1,7 +1,7 @@
 const fs = require("fs");
 const Discord = require("discord.js");
-require('dotenv').config();
 
+require("dotenv").config();
 
 const gabot = new Discord.Client();
 gabot.commands = new Discord.Collection();
@@ -15,10 +15,21 @@ for (const file of commandFiles) {
   gabot.commands.set(command.name, command);
 }
 
-gabot.on("message", (message) => {
-  if (!message.content.startsWith(process.env.PREFIX) || message.author.bot) return;
+gabot.on("ready", () => {
+  const server = gabot.guilds.cache.get("274436634823491584");
+  const memebers = server.members.cache.each((element) => {
+    console.log(element.user.username);
+  });
+});
 
-  const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/);
+gabot.on("message", (message) => {
+  if (!message.content.startsWith(process.env.PREFIX) || message.author.bot)
+    return;
+
+  const args = message.content
+    .slice(process.env.PREFIX.length)
+    .trim()
+    .split(/ +/);
   const command = args.shift().toLowerCase();
 
   if (!gabot.commands.has(command)) return;
