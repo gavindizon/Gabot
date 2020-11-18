@@ -1,6 +1,7 @@
 const fs = require("fs");
 const Discord = require("discord.js");
-const { prefix, token } = require("./config.json");
+require('dotenv').config();
+
 
 const gabot = new Discord.Client();
 gabot.commands = new Discord.Collection();
@@ -11,23 +12,23 @@ const commandFiles = fs
 
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
-  gabot.commands.set(command.name, commad);
+  gabot.commands.set(command.name, command);
 }
 
 gabot.on("message", (message) => {
-  if (!message.content.startsWith(prefix) || message.author.bot) return;
+  if (!message.content.startsWith(process.env.PREFIX) || message.author.bot) return;
 
-  const args = message.content.slice(prefix.length).trim().split(/ +/);
+  const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
 
-  if (!client.commands.has(command)) return;
+  if (!gabot.commands.has(command)) return;
 
   try {
-    client.commands.get(command).execute(message, args);
+    gabot.commands.get(command).execute(message, args);
   } catch (error) {
     console.error(error);
     message.reply("there was an error trying to execute that command!");
   }
 });
 
-gabot.login(token);
+gabot.login(process.env.DISCORD_TOKEN);
