@@ -1,5 +1,6 @@
 const fs = require("fs");
 
+const timestamp = require("unix-timestamp");
 const { Client, Intents, Collection } = require("discord.js");
 const intents = new Intents([
   Intents.NON_PRIVILEGED, // include all non-privileged intents, would be better to specify which ones you actually need
@@ -29,7 +30,7 @@ gabot.on("ready", (m) => {
 
   server.members.fetch().then(console.log).catch(console.error);
   tc = server.channels.cache.get("778913513371992064");
-  tc.send("I am Online!");
+  //tc.send("I am Online!");
 
   //server.channels.create("Bot-created Channel").catch(console.error);
 });
@@ -44,16 +45,46 @@ gabot.on("message", async (message) => {
   }
 });
 gabot.on("presenceUpdate", (oldPresence, newPresence) => {
-  if (newPresence.status === "offline" || newPresence.activities.length === 0)
-    return;
+  // When User switches to online and no activities
+  console.log("Test Check");
+  // console.log("OP\n\n\n");
+  // console.log(oldPresence.guild.jop);
+  // console.log("NP\n\n\n");
+  // console.log(newPresence);
+  if (newPresence.status === "offline" && oldPresence.activities.length === 0) {
+    console.log("Test Check Return");
+    return; //break;
+  }
 
-  tc.send(
-    `${newPresence.user.username} is now **${newPresence.activities[0].type}** ${newPresence.activities[0].name}`
-  );
+  console.log("Test Check2");
 
-  tc.messages.fetch({ limit: 1 }).then((messages) => {
-    tc.bulkDelete(messages);
-  });
+  // If naglaro ka
+  if (newPresence.activities.length > 0 && newPresence.status === "online") {
+    tc.send(
+      `<@${
+        newPresence.user.id
+      }> is now **${newPresence.activities[0].type.toLowerCase()}** ${
+        newPresence.activities[0].name
+      }`
+    );
+  } else {
+    const sTime = new Date(oldPresence.activities[0].createdTimestamp);
+    const eTime = new Date(Date.now());
+    console.log(sTime);
+    console.log(eTime);
+    const elapsed = Math.abs(eTime - sTime) / 36e5;
+
+    tc.send(
+      `<@${
+        oldPresence.user.id
+      }> stopped **${oldPresence.activities[0].type.toLowerCase()}** ${
+        oldPresence.activities[0].name
+      }
+        \n Wow! That's a Total of ${elapsed} hours`
+    );
+  }
+
+  return;
 });
 
 gabot.on("guildMemberUpdate", (oldMember, newMember) => {

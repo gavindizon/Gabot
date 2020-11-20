@@ -21,6 +21,7 @@
   "homepage": "https://github.com/gavindizon/Gabot#readme",
   "dependencies": {
     "discord.js": "^12.4.1",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "unix-timestamp": "^0.2.0"
   }
 }
