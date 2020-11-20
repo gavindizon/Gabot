@@ -46,14 +46,12 @@ gabot.on("message", async (message) => {
 });
 gabot.on("presenceUpdate", (oldPresence, newPresence) => {
   // When User switches to online and no activities
-  console.log("Test Check");
   // console.log("OP\n\n\n");
   // console.log(oldPresence.guild.jop);
   // console.log("NP\n\n\n");
   // console.log(newPresence);
   if (newPresence.status === "offline" && oldPresence.activities.length === 0) {
-    console.log("Test Check Return");
-    return; //break;
+    return;
   }
 
   console.log("Test Check2");
